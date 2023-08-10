@@ -55,6 +55,8 @@ type LinkAttrs struct {
 	Vfs            []VfInfo // virtual functions available on link
 	Group          uint32
 	Slave          LinkSlave
+	ParentBusName  string
+	ParentDevName  string
 }
 
 // LinkSlave represents a slave device.

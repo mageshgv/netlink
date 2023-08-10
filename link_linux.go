@@ -2127,6 +2127,10 @@ func LinkDeserialize(hdr *unix.NlMsghdr, m []byte) (Link, error) {
 			base.NumRxQueues = int(native.Uint32(attr.Value[0:4]))
 		case unix.IFLA_GROUP:
 			base.Group = native.Uint32(attr.Value[0:4])
+		case unix.IFLA_PARENT_DEV_BUS_NAME:
+                        base.ParentBusName = string(attr.Value[:len(attr.Value)-1])
+		case unix.IFLA_PARENT_DEV_NAME:
+			base.ParentDevName = string(attr.Value[:len(attr.Value)-1])
 		}
 	}
 
