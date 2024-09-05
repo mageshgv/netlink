@@ -1561,6 +1561,10 @@ func (h *Handle) linkModify(link Link, flags int) error {
 		msg.Change = unix.IFF_UP
 		msg.Flags = unix.IFF_UP
 	}
+	if base.Flags&net.FlagRunning != 0 {
+                msg.Change = unix.IFF_RUNNING
+                msg.Flags = unix.IFF_RUNNING
+        }
 	if base.Flags&net.FlagBroadcast != 0 {
 		msg.Change |= unix.IFF_BROADCAST
 		msg.Flags |= unix.IFF_BROADCAST
@@ -2661,6 +2665,10 @@ func addNetkitAttrs(nk *Netkit, linkInfo *nl.RtAttr, flag int) error {
 		msg.Change = unix.IFF_UP
 		msg.Flags = unix.IFF_UP
 	}
+	if nk.peerLinkAttrs.Flags&net.FlagRunning != 0 {
+                msg.Change = unix.IFF_RUNNING
+                msg.Flags = unix.IFF_RUNNING
+        }
 	if nk.peerLinkAttrs.Index != 0 {
 		msg.Index = int32(nk.peerLinkAttrs.Index)
 	}
@@ -3012,6 +3020,9 @@ func linkFlags(rawFlags uint32) net.Flags {
 	if rawFlags&unix.IFF_UP != 0 {
 		f |= net.FlagUp
 	}
+	if rawFlags&unix.IFF_RUNNING != 0 {
+                f |= net.FlagRunning
+        }
 	if rawFlags&unix.IFF_BROADCAST != 0 {
 		f |= net.FlagBroadcast
 	}
